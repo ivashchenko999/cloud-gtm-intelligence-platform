@@ -1,0 +1,27 @@
+{
+  "name": "@cloud-gtm/infrastructure",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "infrastructure": "bin/app.ts"
+  },
+  "scripts": {
+    "build": "tsc --noEmit -p tsconfig.json",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "lint": "eslint bin lib",
+    "synth": "cdk synth",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "clean": "rm -rf cdk.out coverage"
+  },
+  "dependencies": {
+    "aws-cdk-lib": "^2.173.4",
+    "constructs": "^10.4.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.5",
+    "aws-cdk": "^2.173.1",
+    "tsx": "^4.19.2"
+  }
+}

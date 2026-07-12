@@ -1,0 +1,12 @@
+{
+  "title": "Imports",
+  "subtitle": "Upload CRM exports and track processing.",
+  "status": {
+    "PENDING": "Pending",
+    "UPLOADING": "Uploading",
+    "PROCESSING": "Processing",
+    "COMPLETED": "Completed",
+    "PARTIALLY_COMPLETED": "Partially completed",
+    "FAILED": "Failed"
+  }
+}

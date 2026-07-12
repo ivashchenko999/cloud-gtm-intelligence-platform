@@ -1,0 +1,15 @@
+{
+  "title": "Tableau de bord",
+  "subtitle": "Occasions Cloud GTM priorisées parmi vos comptes CRM.",
+  "kpi": {
+    "totalAccounts": "Comptes totaux",
+    "highIntentAccounts": "Comptes à forte intention",
+    "averageIntent": "Intention d’achat moyenne",
+    "pipelineValue": "Valeur estimée du pipeline"
+  },
+  "charts": {
+    "intentDistribution": "Répartition de l’intention d’achat",
+    "cloudDistribution": "Répartition des fournisseurs infonuagiques",
+    "opportunitiesByIndustry": "Occasions par industrie"
+  }
+}

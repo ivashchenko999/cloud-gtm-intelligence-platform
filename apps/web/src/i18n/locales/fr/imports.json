@@ -1,0 +1,12 @@
+{
+  "title": "Importations",
+  "subtitle": "Téléversez des exports CRM et suivez le traitement.",
+  "status": {
+    "PENDING": "En attente",
+    "UPLOADING": "Téléversement",
+    "PROCESSING": "Traitement",
+    "COMPLETED": "Terminé",
+    "PARTIALLY_COMPLETED": "Partiellement terminé",
+    "FAILED": "Échec"
+  }
+}
