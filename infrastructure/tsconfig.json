@@ -3,7 +3,11 @@
   "compilerOptions": {
     "module": "ESNext",
     "moduleResolution": "Bundler",
-    "types": ["node"]
+    "types": ["node"],
+    // AWS CDK's construct classes expose optional properties as `T | undefined`
+    // where their interfaces declare `T`, which is incompatible with
+    // `exactOptionalPropertyTypes`. Relax it for infrastructure code only.
+    "exactOptionalPropertyTypes": false
   },
   "include": ["bin", "lib"]
 }

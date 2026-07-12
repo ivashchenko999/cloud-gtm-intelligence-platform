@@ -5,8 +5,8 @@ export interface HealthResponse {
 }
 
 /**
- * Placeholder health handler. The API Gateway + Lambda wiring, middleware and
- * real resource handlers arrive in M4.
+ * Health handler exposed at `GET /api/health` (see `../lambda.ts`). Middleware
+ * and the real resource handlers arrive in M4.
  */
 export function getHealth(now: Date = new Date()): HealthResponse {
   return {
