@@ -1,0 +1,45 @@
+# Dependencies
+node_modules/
+
+# Builds
+dist/
+build/
+cdk.out/
+.turbo/
+
+# Tests
+coverage/
+playwright-report/
+test-results/
+
+# Environment
+.env
+.env.*
+!.env.example
+!**/.env.example
+
+# Generated
+apps/web/src/api/generated/
+
+# AWS
+.aws-sam/
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# Editors
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+
+# Local, machine-specific notes (never committed)
+.local/
+
+# macOS
+.DS_Store
+
+# TypeScript
+*.tsbuildinfo

@@ -1,0 +1,16 @@
+{
+  "title": "Comptes",
+  "subtitle": "Explorez et priorisez les comptes selon l’intention d’achat.",
+  "columns": {
+    "account": "Compte",
+    "domain": "Domaine",
+    "industry": "Industrie",
+    "employees": "Employés",
+    "cloud": "Infonuagique",
+    "cloudSpend": "Dépenses infonuagiques",
+    "marketplaceActivity": "Activité sur la place de marché",
+    "purchaseIntent": "Intention d’achat",
+    "priority": "Priorité",
+    "updated": "Mis à jour"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "title": "Dashboard",
+  "subtitle": "Prioritized Cloud GTM opportunities across your CRM accounts.",
+  "kpi": {
+    "totalAccounts": "Total Accounts",
+    "highIntentAccounts": "High-Intent Accounts",
+    "averageIntent": "Average Purchase Intent",
+    "pipelineValue": "Estimated Pipeline Value"
+  },
+  "charts": {
+    "intentDistribution": "Purchase Intent Distribution",
+    "cloudDistribution": "Cloud Provider Distribution",
+    "opportunitiesByIndustry": "Opportunities by Industry"
+  }
+}

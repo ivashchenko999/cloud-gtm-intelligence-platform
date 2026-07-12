@@ -1,0 +1,16 @@
+{
+  "title": "Accounts",
+  "subtitle": "Explore and prioritize accounts by purchase intent.",
+  "columns": {
+    "account": "Account",
+    "domain": "Domain",
+    "industry": "Industry",
+    "employees": "Employees",
+    "cloud": "Cloud",
+    "cloudSpend": "Cloud Spend",
+    "marketplaceActivity": "Marketplace Activity",
+    "purchaseIntent": "Purchase Intent",
+    "priority": "Priority",
+    "updated": "Updated"
+  }
+}

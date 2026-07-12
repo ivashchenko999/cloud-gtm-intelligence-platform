@@ -1,0 +1,30 @@
+{
+  "appName": "Cloud GTM Intelligence",
+  "navigation": {
+    "dashboard": "Tableau de bord",
+    "accounts": "Comptes",
+    "imports": "Importations",
+    "settings": "Paramètres"
+  },
+  "actions": {
+    "importCrm": "Importer les données CRM",
+    "cancel": "Annuler",
+    "close": "Fermer",
+    "retry": "Réessayer"
+  },
+  "scoreLevel": {
+    "HIGH": "Élevé",
+    "MEDIUM": "Moyen",
+    "LOW": "Faible"
+  },
+  "language": {
+    "selectLanguage": "Choisir la langue",
+    "en": "EN",
+    "fr": "FR"
+  },
+  "states": {
+    "loading": "Chargement…",
+    "empty": "Rien à afficher pour l’instant",
+    "error": "Une erreur est survenue"
+  }
+}
