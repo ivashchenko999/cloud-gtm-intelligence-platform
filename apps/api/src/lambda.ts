@@ -33,9 +33,7 @@ function json(statusCode: number, body: unknown): APIGatewayProxyResultV2 {
  * the normalized `METHOD /path` route key so the same handler works whether the
  * function is invoked directly or fronted by CloudFront's `/api/*` behavior.
  */
-export async function handler(
-  event: APIGatewayProxyEventV2,
-): Promise<APIGatewayProxyResultV2> {
+export async function handler(event: APIGatewayProxyEventV2): Promise<APIGatewayProxyResultV2> {
   const method = event.requestContext.http.method;
   const path = event.rawPath.replace(/\/+$/, '') || '/';
   const route = `${method} ${path}`;
