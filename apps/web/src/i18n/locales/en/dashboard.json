@@ -5,11 +5,39 @@
     "totalAccounts": "Total Accounts",
     "highIntentAccounts": "High-Intent Accounts",
     "averageIntent": "Average Purchase Intent",
-    "pipelineValue": "Estimated Pipeline Value"
+    "pipelineValue": "Estimated Pipeline Value",
+    "awsOpportunities": "AWS Opportunities",
+    "azureOpportunities": "Azure Opportunities",
+    "gcpOpportunities": "GCP Opportunities",
+    "latestImportStatus": "Latest Import"
   },
   "charts": {
     "intentDistribution": "Purchase Intent Distribution",
     "cloudDistribution": "Cloud Provider Distribution",
-    "opportunitiesByIndustry": "Opportunities by Industry"
+    "opportunitiesByIndustry": "Opportunities by Industry",
+    "topAccounts": "Top 10 Accounts",
+    "accountsAxis": "Accounts",
+    "empty": "No data to chart yet."
+  },
+  "topAccounts": {
+    "account": "Account",
+    "industry": "Industry",
+    "cloud": "Cloud",
+    "intent": "Intent",
+    "empty": "No accounts to rank yet."
+  },
+  "latestImport": {
+    "title": "Latest Import",
+    "filename": "File",
+    "date": "Imported",
+    "status": "Status",
+    "rows": "Rows",
+    "duration": "Duration",
+    "rowsValue": "{{success}} of {{total}}",
+    "empty": "No imports yet."
+  },
+  "empty": {
+    "title": "No accounts yet",
+    "description": "Import a CRM export to see your prioritized GTM opportunities."
   }
 }

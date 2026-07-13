@@ -18,6 +18,13 @@
     "MEDIUM": "Moyen",
     "LOW": "Faible"
   },
+  "cloudProvider": {
+    "AWS": "AWS",
+    "AZURE": "Azure",
+    "GCP": "GCP",
+    "MULTI_CLOUD": "Multinuage",
+    "UNKNOWN": "Inconnu"
+  },
   "language": {
     "selectLanguage": "Choisir la langue",
     "en": "EN",
