@@ -19,6 +19,7 @@ import AccountsIcon from '@mui/icons-material/BusinessOutlined';
 import ImportsIcon from '@mui/icons-material/CloudUploadOutlined';
 import SettingsIcon from '@mui/icons-material/SettingsOutlined';
 import { LanguageSwitcher } from '../components/LanguageSwitcher';
+import { ImportCrmDialog } from '../components/ImportCrmDialog';
 
 const DRAWER_WIDTH = 232;
 
@@ -32,6 +33,7 @@ const navItems = [
 export function AppLayout() {
   const { t } = useTranslation('common');
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [importOpen, setImportOpen] = useState(false);
 
   const navigation = (
     <List component="nav">
@@ -70,7 +72,11 @@ export function AppLayout() {
             {t('appName')}
           </Typography>
           <LanguageSwitcher />
-          <Button variant="contained" startIcon={<ImportsIcon />}>
+          <Button
+            variant="contained"
+            startIcon={<ImportsIcon />}
+            onClick={() => setImportOpen(true)}
+          >
             {t('actions.importCrm')}
           </Button>
         </Toolbar>
@@ -118,6 +124,8 @@ export function AppLayout() {
           <Outlet />
         </Container>
       </Box>
+
+      <ImportCrmDialog open={importOpen} onClose={() => setImportOpen(false)} />
     </Box>
   );
 }

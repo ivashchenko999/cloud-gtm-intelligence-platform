@@ -6,6 +6,8 @@
 export interface ApiConfig {
   tableName: string;
   geminiSecretArn: string;
+  /** Private S3 bucket CRM CSVs are uploaded to via presigned URLs. */
+  importBucket: string;
   /** Workspace every request is scoped to until multi-tenant auth lands. */
   workspaceId: string;
 }
@@ -22,6 +24,7 @@ export function readConfig(env: NodeJS.ProcessEnv = process.env): ApiConfig {
   return {
     tableName: env.TABLE_NAME ?? '',
     geminiSecretArn: env.GEMINI_SECRET_ARN ?? '',
+    importBucket: env.IMPORT_BUCKET_NAME ?? '',
     workspaceId: env.DEFAULT_WORKSPACE_ID ?? DEFAULT_WORKSPACE_ID,
   };
 }

@@ -18,6 +18,7 @@ const secrets = new SecretsStack(app, 'CloudGtmSecretsStack', { env });
 const api = new ApiStack(app, 'CloudGtmApiStack', {
   env,
   table: data.table,
+  importBucket: data.importBucket,
   geminiApiKey: secrets.geminiApiKey,
 });
 
