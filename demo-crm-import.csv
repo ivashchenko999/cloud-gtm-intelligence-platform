@@ -1,0 +1,11 @@
+name,domain,industry,employeeCount,annualRevenue,primaryCloud,estimatedCloudSpend,existingProducts,marketplaceActivity,marketplaceTransactions
+Globex Cloud Systems,globex.example.com,Software,4200,850000000,AWS,1250000,"Data Platform;Security Suite",HIGH,18
+Initech Manufacturing,initech.example.com,Manufacturing,1800,320000000,AZURE,640000,"ERP Connector;Analytics Cloud",MEDIUM,7
+Umbrella Health,umbrella.example.com,Healthcare,9500,2100000000,GCP,980000,"Compliance Vault;Patient 360",HIGH,11
+Stark Retail Group,starkretail.example.com,Retail,2600,540000000,MULTI_CLOUD,720000,"Commerce Cloud;Identity Shield",HIGH,14
+Wayne Financial,waynefinancial.example.com,Financial Services,5100,1600000000,AWS,890000,"Risk Engine;Data Platform",MEDIUM,9
+Soylent Logistics,soylent.example.com,Logistics,740,96000000,AZURE,185000,"Route Optimizer",LOW,2
+Wonka Foods,wonka.example.com,Consumer Goods,1300,240000000,GCP,310000,"Demand Forecasting;Marketplace Insights",MEDIUM,5
+Tyrell Robotics,tyrell.example.com,Industrial Automation,3600,780000000,AWS,1120000,"IoT Hub;Security Suite",HIGH,16
+Cyberdyne Research,cyberdyne.example.com,Technology,2200,430000000,MULTI_CLOUD,570000,"AI Workbench;Data Platform",HIGH,10
+Hooli Media,hooli.example.com,Media,6200,1200000000,UNKNOWN,260000,"Ad Analytics",LOW,1
