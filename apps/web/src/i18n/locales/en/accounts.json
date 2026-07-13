@@ -3,7 +3,33 @@
   "subtitle": "Explore and prioritize accounts by purchase intent.",
   "detail": {
     "title": "Account detail",
-    "subtitle": "Score factors and AI actions for account {{id}} will appear here."
+    "subtitle": "Score factors and AI actions for account {{id}} will appear here.",
+    "close": "Close account detail",
+    "accountId": "Account {{id}}",
+    "profile": "Profile",
+    "score": "Purchase intent score",
+    "scoreVersion": "Score version",
+    "scoreFactors": "Score factors",
+    "noScoreFactors": "No score factors recorded.",
+    "products": "Existing products",
+    "noProducts": "No products recorded.",
+    "aiActions": "AI actions",
+    "aiUnavailable": "Available in M7",
+    "aiExplanation": "Explain score",
+    "aiNextAction": "Recommend next action",
+    "aiOutreach": "Draft outreach",
+    "fields": {
+      "domain": "Domain",
+      "industry": "Industry",
+      "employees": "Employees",
+      "annualRevenue": "Annual Revenue",
+      "primaryCloud": "Primary Cloud",
+      "cloudSpend": "Estimated Cloud Spend",
+      "marketplaceActivity": "Marketplace Activity",
+      "marketplaceTransactions": "Marketplace Transactions",
+      "created": "Created",
+      "updated": "Updated"
+    }
   },
   "columns": {
     "account": "Account",
