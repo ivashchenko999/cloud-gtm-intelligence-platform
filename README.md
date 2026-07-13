@@ -43,7 +43,27 @@ pnpm install
 pnpm dev            # runs app dev servers via Turborepo
 ```
 
-The web app is served by Vite (`apps/web`).
+The web app is served by Vite (`apps/web`). There is currently no local API dev
+server in `apps/api`; production runs the API as AWS Lambda behind API Gateway.
+For local product testing, run the React app locally and point it at the deployed
+AWS API:
+
+```bash
+cp apps/web/.env.example apps/web/.env.local
+pnpm --filter @cloud-gtm/web dev
+```
+
+That gives this flow:
+
+```text
+http://localhost:5173
+  -> https://4njro4e2y6.execute-api.ca-central-1.amazonaws.com/api
+  -> Lambda
+  -> DynamoDB / S3
+```
+
+Use [`demo-crm-import.csv`](demo-crm-import.csv) as a known-good CRM upload file
+when testing the import flow.
 
 ## Quality checks
 
