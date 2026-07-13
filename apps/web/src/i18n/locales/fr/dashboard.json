@@ -5,11 +5,39 @@
     "totalAccounts": "Comptes totaux",
     "highIntentAccounts": "Comptes à forte intention",
     "averageIntent": "Intention d’achat moyenne",
-    "pipelineValue": "Valeur estimée du pipeline"
+    "pipelineValue": "Valeur estimée du pipeline",
+    "awsOpportunities": "Occasions AWS",
+    "azureOpportunities": "Occasions Azure",
+    "gcpOpportunities": "Occasions GCP",
+    "latestImportStatus": "Dernière importation"
   },
   "charts": {
     "intentDistribution": "Répartition de l’intention d’achat",
     "cloudDistribution": "Répartition des fournisseurs infonuagiques",
-    "opportunitiesByIndustry": "Occasions par industrie"
+    "opportunitiesByIndustry": "Occasions par industrie",
+    "topAccounts": "10 meilleurs comptes",
+    "accountsAxis": "Comptes",
+    "empty": "Aucune donnée à afficher pour l’instant."
+  },
+  "topAccounts": {
+    "account": "Compte",
+    "industry": "Industrie",
+    "cloud": "Infonuagique",
+    "intent": "Intention",
+    "empty": "Aucun compte à classer pour l’instant."
+  },
+  "latestImport": {
+    "title": "Dernière importation",
+    "filename": "Fichier",
+    "date": "Importé",
+    "status": "Statut",
+    "rows": "Lignes",
+    "duration": "Durée",
+    "rowsValue": "{{success}} sur {{total}}",
+    "empty": "Aucune importation pour l’instant."
+  },
+  "empty": {
+    "title": "Aucun compte pour l’instant",
+    "description": "Importez un export CRM pour voir vos occasions GTM priorisées."
   }
 }
