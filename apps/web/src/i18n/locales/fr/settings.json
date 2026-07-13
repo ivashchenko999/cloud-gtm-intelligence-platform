@@ -1,0 +1,23 @@
+{
+  "title": "Paramètres",
+  "subtitle": "Contrôles de l’espace de travail pour retester les imports CRM.",
+  "dataManagement": {
+    "title": "Gestion des données",
+    "description": "Efface les données CRM importées, l’historique des imports, les erreurs par ligne, les scores générés, le cache des insights IA et les résumés du tableau de bord pour cet espace.",
+    "warning": "Cette action est irréversible. La configuration de l’espace est conservée, mais les comptes importés sont supprimés de DynamoDB.",
+    "confirmationLabel": "Saisissez RESET pour confirmer",
+    "confirmationPlaceholder": "RESET",
+    "resetButton": "Réinitialiser les données",
+    "resetting": "Réinitialisation...",
+    "success": "Les données de l’espace ont été réinitialisées.",
+    "failure": "La réinitialisation a échoué. Réessayez ou vérifiez les journaux de l’API.",
+    "counts": {
+      "imports": "Imports supprimés",
+      "importErrors": "Erreurs d’import supprimées",
+      "accounts": "Comptes supprimés",
+      "scores": "Scores supprimés",
+      "insights": "Insights IA supprimés",
+      "dashboard": "Résumés du tableau de bord supprimés"
+    }
+  }
+}

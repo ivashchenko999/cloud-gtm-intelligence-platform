@@ -45,6 +45,7 @@ import {
   NextActionInsightSchema,
   OutreachInsightSchema,
 } from './insight';
+import { ResetWorkspaceRequestSchema, ResetWorkspaceResponseSchema } from './settings';
 
 /** Shared enums registered once so every usage becomes a single `$ref`. */
 const NAMED_ENUMS = {
@@ -82,6 +83,8 @@ const NAMED_SCHEMAS = {
   OutreachInsight: OutreachInsightSchema,
   InsightContent: InsightContentSchema,
   AIInsight: AIInsightSchema,
+  ResetWorkspaceRequest: ResetWorkspaceRequestSchema,
+  ResetWorkspaceResponse: ResetWorkspaceResponseSchema,
   ErrorDetail: ErrorDetailSchema,
   ErrorResponse: ErrorResponseSchema,
 } as const;
@@ -214,6 +217,19 @@ function buildRegistry(): OpenAPIRegistry {
     responses: {
       200: jsonBody(ImportDetailResponseSchema, 'Import detail'),
       404: errorResponse('Import not found'),
+    },
+  });
+
+  registry.registerPath({
+    method: 'post',
+    path: '/settings/reset-workspace',
+    summary: 'Delete demo workspace data for test resets',
+    request: {
+      body: { content: { 'application/json': { schema: ResetWorkspaceRequestSchema } } },
+    },
+    responses: {
+      200: jsonBody(ResetWorkspaceResponseSchema, 'Workspace data reset summary'),
+      400: errorResponse('Invalid confirmation'),
     },
   });
 

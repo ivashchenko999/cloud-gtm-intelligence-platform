@@ -56,6 +56,11 @@ export class ImportRepository {
     await this.gateway.put(toImportItem(job));
   }
 
+  async delete(workspaceId: string, importId: string): Promise<void> {
+    const key = keys.import(workspaceId, importId);
+    await this.gateway.delete(key.PK, key.SK);
+  }
+
   async addErrors(workspaceId: string, errors: ImportRowError[]): Promise<void> {
     if (errors.length === 0) return;
     await this.gateway.putMany(errors.map((error) => toImportErrorItem(workspaceId, error)));
@@ -67,6 +72,15 @@ export class ImportRepository {
       beginsWith: keys.importErrorPrefix(importId),
     });
     return items.map((item) => toDomain<ImportRowError>(item));
+  }
+
+  async deleteErrors(workspaceId: string, importId: string): Promise<number> {
+    const errors = await this.listErrors(workspaceId, importId);
+    for (const error of errors) {
+      const key = keys.importError(workspaceId, importId, error.rowNumber);
+      await this.gateway.delete(key.PK, key.SK);
+    }
+    return errors.length;
   }
 }
 
@@ -89,6 +103,11 @@ export class AccountRepository {
 
   async save(account: Account): Promise<void> {
     await this.gateway.put(toAccountItem(account));
+  }
+
+  async delete(workspaceId: string, accountId: string): Promise<void> {
+    const key = keys.account(workspaceId, accountId);
+    await this.gateway.delete(key.PK, key.SK);
   }
 
   async saveMany(accounts: Account[]): Promise<void> {
@@ -145,6 +164,11 @@ export class AccountRepository {
   async saveScore(record: AccountScoreRecord): Promise<void> {
     await this.gateway.put(toAccountScoreItem(record));
   }
+
+  async deleteScore(workspaceId: string, accountId: string, version: string): Promise<void> {
+    const key = keys.accountScore(workspaceId, accountId, version);
+    await this.gateway.delete(key.PK, key.SK);
+  }
 }
 
 export class InsightRepository {
@@ -161,6 +185,15 @@ export class InsightRepository {
   async save(record: AIInsightRecord): Promise<void> {
     await this.gateway.put(toInsightItem(record));
   }
+
+  async deleteByAccount(workspaceId: string, accountId: string): Promise<number> {
+    const insights = await this.listByAccount(workspaceId, accountId);
+    for (const insight of insights) {
+      const key = keys.insight(workspaceId, accountId, insight.type, insight.locale);
+      await this.gateway.delete(key.PK, key.SK);
+    }
+    return insights.length;
+  }
 }
 
 export class DashboardRepository {
@@ -174,6 +207,11 @@ export class DashboardRepository {
 
   async save(summary: DashboardSummary): Promise<void> {
     await this.gateway.put(toDashboardItem(summary));
+  }
+
+  async delete(workspaceId: string): Promise<void> {
+    const key = keys.dashboard(workspaceId);
+    await this.gateway.delete(key.PK, key.SK);
   }
 }
 

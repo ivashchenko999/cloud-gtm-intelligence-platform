@@ -1,0 +1,23 @@
+{
+  "title": "Settings",
+  "subtitle": "Workspace controls for repeatable CRM import testing.",
+  "dataManagement": {
+    "title": "Data management",
+    "description": "Clear imported CRM data, import history, row errors, generated scores, AI insight cache, and dashboard summaries for this workspace.",
+    "warning": "This cannot be undone. Workspace configuration is kept, but the imported account dataset is deleted from DynamoDB.",
+    "confirmationLabel": "Type RESET to confirm",
+    "confirmationPlaceholder": "RESET",
+    "resetButton": "Reset workspace data",
+    "resetting": "Resetting...",
+    "success": "Workspace data reset completed.",
+    "failure": "The reset failed. Try again or check the API logs.",
+    "counts": {
+      "imports": "Imports deleted",
+      "importErrors": "Import errors deleted",
+      "accounts": "Accounts deleted",
+      "scores": "Score records deleted",
+      "insights": "AI insights deleted",
+      "dashboard": "Dashboard summaries deleted"
+    }
+  }
+}

@@ -36,7 +36,9 @@ import type {
   ImportDetail,
   InsightRequest,
   ListAccountsResponse,
-  ListImportsResponse
+  ListImportsResponse,
+  ResetWorkspaceRequest,
+  ResetWorkspaceResponse
 } from './model';
 
 import { customFetch } from '../fetch-client';
@@ -948,3 +950,79 @@ export function useGetImportsImportId<TData = Awaited<ReturnType<typeof getImpor
 
   return query;
 }
+
+
+
+
+
+/**
+ * @summary Delete demo workspace data for test resets
+ */
+export const getPostSettingsResetWorkspaceUrl = () => {
+
+
+  
+
+  return `/settings/reset-workspace`
+}
+
+export const postSettingsResetWorkspace = async (resetWorkspaceRequest: ResetWorkspaceRequest, options?: RequestInit): Promise<ResetWorkspaceResponse> => {
+  
+  return customFetch<ResetWorkspaceResponse>(getPostSettingsResetWorkspaceUrl(),
+  {      
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      resetWorkspaceRequest,)
+  }
+);}
+
+
+
+
+export const getPostSettingsResetWorkspaceMutationOptions = <TError = ErrorResponse,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postSettingsResetWorkspace>>, TError,{data: ResetWorkspaceRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof postSettingsResetWorkspace>>, TError,{data: ResetWorkspaceRequest}, TContext> => {
+
+const mutationKey = ['postSettingsResetWorkspace'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof postSettingsResetWorkspace>>, {data: ResetWorkspaceRequest}> = (props) => {
+          const {data} = props ?? {};
+
+          return  postSettingsResetWorkspace(data,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type PostSettingsResetWorkspaceMutationResult = NonNullable<Awaited<ReturnType<typeof postSettingsResetWorkspace>>>
+    export type PostSettingsResetWorkspaceMutationBody = ResetWorkspaceRequest
+    export type PostSettingsResetWorkspaceMutationError = ErrorResponse
+
+    /**
+ * @summary Delete demo workspace data for test resets
+ */
+export const usePostSettingsResetWorkspace = <TError = ErrorResponse,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postSettingsResetWorkspace>>, TError,{data: ResetWorkspaceRequest}, TContext>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof postSettingsResetWorkspace>>,
+        TError,
+        {data: ResetWorkspaceRequest},
+        TContext
+      > => {
+
+      const mutationOptions = getPostSettingsResetWorkspaceMutationOptions(options);
+
+      return useMutation(mutationOptions, queryClient);
+    }

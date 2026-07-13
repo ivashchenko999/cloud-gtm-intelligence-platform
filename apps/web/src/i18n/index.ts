@@ -7,11 +7,13 @@ import commonEn from './locales/en/common.json';
 import dashboardEn from './locales/en/dashboard.json';
 import accountsEn from './locales/en/accounts.json';
 import importsEn from './locales/en/imports.json';
+import settingsEn from './locales/en/settings.json';
 
 import commonFr from './locales/fr/common.json';
 import dashboardFr from './locales/fr/dashboard.json';
 import accountsFr from './locales/fr/accounts.json';
 import importsFr from './locales/fr/imports.json';
+import settingsFr from './locales/fr/settings.json';
 
 export const LANGUAGE_STORAGE_KEY = 'cloudGtmLanguage';
 
@@ -21,12 +23,14 @@ export const resources = {
     dashboard: dashboardEn,
     accounts: accountsEn,
     imports: importsEn,
+    settings: settingsEn,
   },
   fr: {
     common: commonFr,
     dashboard: dashboardFr,
     accounts: accountsFr,
     imports: importsFr,
+    settings: settingsFr,
   },
 } as const;
 

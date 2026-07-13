@@ -752,6 +752,57 @@
           "createdAt"
         ]
       },
+      "ResetWorkspaceRequest": {
+        "type": "object",
+        "properties": {
+          "confirmation": {
+            "type": "string",
+            "enum": [
+              "RESET"
+            ]
+          }
+        },
+        "required": [
+          "confirmation"
+        ]
+      },
+      "ResetWorkspaceResponse": {
+        "type": "object",
+        "properties": {
+          "deletedImports": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "deletedImportErrors": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "deletedAccounts": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "deletedAccountScores": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "deletedInsights": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "deletedDashboardSummaries": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "deletedImports",
+          "deletedImportErrors",
+          "deletedAccounts",
+          "deletedAccountScores",
+          "deletedInsights",
+          "deletedDashboardSummaries"
+        ]
+      },
       "ErrorDetail": {
         "type": "object",
         "properties": {
@@ -1277,6 +1328,42 @@
           },
           "404": {
             "description": "Import not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/settings/reset-workspace": {
+      "post": {
+        "summary": "Delete demo workspace data for test resets",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResetWorkspaceRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Workspace data reset summary",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResetWorkspaceResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid confirmation",
             "content": {
               "application/json": {
                 "schema": {

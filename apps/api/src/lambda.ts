@@ -4,6 +4,7 @@ import { getAccount, listAccounts } from './handlers/accounts';
 import { getDashboard } from './handlers/dashboard';
 import { handleHealth } from './handlers/health';
 import { createImport, getImport, listImports } from './handlers/imports';
+import { resetWorkspace } from './handlers/settings';
 import { createRouter, route, type HandlerDeps } from './http/router';
 import { getRepositories } from './repositories';
 import { getUploadSigner } from './storage/uploads';
@@ -21,6 +22,7 @@ export const routes = [
   route('GET', '/imports', listImports),
   route('GET', '/imports/:importId', getImport),
   route('POST', '/imports', createImport),
+  route('POST', '/settings/reset-workspace', resetWorkspace),
 ] as const;
 
 /** Builds a handler over injected dependencies — the seam tests drive. */
