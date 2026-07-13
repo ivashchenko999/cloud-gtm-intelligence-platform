@@ -26,6 +26,13 @@ export default tseslint.config(
         ...globals.browser,
       },
     },
+    rules: {
+      // Allow underscore-prefixed bindings, e.g. rest-omit destructuring.
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        { argsIgnorePattern: '^_', varsIgnorePattern: '^_', caughtErrorsIgnorePattern: '^_' },
+      ],
+    },
   },
   prettier,
 );
