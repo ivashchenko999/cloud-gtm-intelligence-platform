@@ -4,7 +4,8 @@
     "dashboard": "Tableau de bord",
     "accounts": "Comptes",
     "imports": "Importations",
-    "settings": "Paramètres"
+    "settings": "Paramètres",
+    "openMenu": "Ouvrir le menu de navigation"
   },
   "actions": {
     "importCrm": "Importer les données CRM",

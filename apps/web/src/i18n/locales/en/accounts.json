@@ -1,6 +1,10 @@
 {
   "title": "Accounts",
   "subtitle": "Explore and prioritize accounts by purchase intent.",
+  "detail": {
+    "title": "Account detail",
+    "subtitle": "Score factors and AI actions for account {{id}} will appear here."
+  },
   "columns": {
     "account": "Account",
     "domain": "Domain",

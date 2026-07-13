@@ -1,6 +1,10 @@
 {
   "title": "Comptes",
   "subtitle": "Explorez et priorisez les comptes selon l’intention d’achat.",
+  "detail": {
+    "title": "Détail du compte",
+    "subtitle": "Les facteurs de score et les actions IA pour le compte {{id}} apparaîtront ici."
+  },
   "columns": {
     "account": "Compte",
     "domain": "Domaine",

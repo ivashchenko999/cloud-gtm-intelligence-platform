@@ -4,7 +4,8 @@
     "dashboard": "Dashboard",
     "accounts": "Accounts",
     "imports": "Imports",
-    "settings": "Settings"
+    "settings": "Settings",
+    "openMenu": "Open navigation menu"
   },
   "actions": {
     "importCrm": "Import CRM",

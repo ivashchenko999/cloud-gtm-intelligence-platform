@@ -1,6 +1,10 @@
 {
   "title": "Imports",
   "subtitle": "Upload CRM exports and track processing.",
+  "detail": {
+    "title": "Import detail",
+    "subtitle": "Row-level results and errors for import {{id}} will appear here."
+  },
   "status": {
     "PENDING": "Pending",
     "UPLOADING": "Uploading",
