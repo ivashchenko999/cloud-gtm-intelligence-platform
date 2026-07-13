@@ -1,0 +1,11 @@
+{
+  "title": "Analyses IA",
+  "actions": {
+    "explanation": "Expliquer le score",
+    "nextAction": "Proposer une action",
+    "outreach": "Rédiger une approche"
+  },
+  "generate": "Générer",
+  "regenerate": "Régénérer",
+  "disclaimer": "Généré par IA. À vérifier avant de partager."
+}

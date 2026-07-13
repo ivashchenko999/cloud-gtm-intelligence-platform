@@ -1,0 +1,11 @@
+{
+  "title": "AI insights",
+  "actions": {
+    "explanation": "Explain score",
+    "nextAction": "Suggest next action",
+    "outreach": "Draft outreach"
+  },
+  "generate": "Generate",
+  "regenerate": "Regenerate",
+  "disclaimer": "AI-generated. Review before sharing."
+}

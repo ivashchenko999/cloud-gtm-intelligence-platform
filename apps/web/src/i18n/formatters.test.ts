@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { formatCurrency, formatDate } from './formatters';
+import { formatCurrency, formatDate, formatPercentage } from './formatters';
 
 describe('locale formatters', () => {
   it('formats dates per locale', () => {
@@ -10,5 +10,9 @@ describe('locale formatters', () => {
 
   it('formats compact CAD currency', () => {
     expect(formatCurrency(3_200_000, 'en-CA')).toContain('3.2M');
+  });
+
+  it('formats a ratio as a whole-number percentage', () => {
+    expect(formatPercentage(0.42, 'en-CA')).toBe('42%');
   });
 });
