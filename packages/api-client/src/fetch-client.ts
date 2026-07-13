@@ -25,12 +25,14 @@ export class ApiError extends Error {
  * throwing {@link ApiError} on non-2xx so TanStack Query surfaces failures.
  */
 export async function customFetch<T>(url: string, options: RequestInit = {}): Promise<T> {
+  const headers = new Headers(options.headers);
+  if (options.body !== undefined && !headers.has('content-type')) {
+    headers.set('content-type', 'application/json');
+  }
+
   const response = await fetch(`${baseUrl}${url}`, {
     ...options,
-    headers: {
-      'content-type': 'application/json',
-      ...options.headers,
-    },
+    headers,
   });
 
   const text = await response.text();
