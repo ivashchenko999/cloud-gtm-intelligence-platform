@@ -25,6 +25,11 @@
     "MULTI_CLOUD": "Multinuage",
     "UNKNOWN": "Inconnu"
   },
+  "marketplaceActivity": {
+    "HIGH": "Élevée",
+    "MEDIUM": "Moyenne",
+    "LOW": "Faible"
+  },
   "language": {
     "selectLanguage": "Choisir la langue",
     "en": "EN",

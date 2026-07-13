@@ -3,7 +3,33 @@
   "subtitle": "Explorez et priorisez les comptes selon l’intention d’achat.",
   "detail": {
     "title": "Détail du compte",
-    "subtitle": "Les facteurs de score et les actions IA pour le compte {{id}} apparaîtront ici."
+    "subtitle": "Les facteurs de score et les actions IA pour le compte {{id}} apparaîtront ici.",
+    "close": "Fermer le détail du compte",
+    "accountId": "Compte {{id}}",
+    "profile": "Profil",
+    "score": "Score d’intention d’achat",
+    "scoreVersion": "Version du score",
+    "scoreFactors": "Facteurs de score",
+    "noScoreFactors": "Aucun facteur de score enregistré.",
+    "products": "Produits existants",
+    "noProducts": "Aucun produit enregistré.",
+    "aiActions": "Actions IA",
+    "aiUnavailable": "Disponible en M7",
+    "aiExplanation": "Expliquer le score",
+    "aiNextAction": "Recommander la prochaine action",
+    "aiOutreach": "Rédiger un message",
+    "fields": {
+      "domain": "Domaine",
+      "industry": "Industrie",
+      "employees": "Employés",
+      "annualRevenue": "Revenu annuel",
+      "primaryCloud": "Nuage principal",
+      "cloudSpend": "Dépenses infonuagiques estimées",
+      "marketplaceActivity": "Activité sur la place de marché",
+      "marketplaceTransactions": "Transactions sur la place de marché",
+      "created": "Créé",
+      "updated": "Mis à jour"
+    }
   },
   "columns": {
     "account": "Compte",
