@@ -60,5 +60,6 @@ export class DataStack extends Stack {
       removalPolicy: RemovalPolicy.DESTROY,
       autoDeleteObjects: true,
     });
+    this.importBucket.enableEventBridgeNotification();
   }
 }

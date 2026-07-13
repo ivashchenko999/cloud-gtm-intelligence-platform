@@ -68,6 +68,9 @@ importers:
       '@cloud-gtm/contracts':
         specifier: workspace:*
         version: link:../../packages/contracts
+      '@cloud-gtm/csv-import':
+        specifier: workspace:*
+        version: link:../../packages/csv-import
       '@cloud-gtm/database':
         specifier: workspace:*
         version: link:../../packages/database

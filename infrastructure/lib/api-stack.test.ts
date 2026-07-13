@@ -18,10 +18,10 @@ function synth() {
 }
 
 describe('ApiStack', () => {
-  it('provisions a single Node.js 22 ARM Lambda with the table + secret wired in', () => {
+  it('provisions Node.js 22 ARM Lambdas with shared runtime configuration', () => {
     const template = synth();
 
-    template.resourceCountIs('AWS::Lambda::Function', 1);
+    template.resourceCountIs('AWS::Lambda::Function', 2);
     template.hasResourceProperties('AWS::Lambda::Function', {
       Runtime: 'nodejs22.x',
       Architectures: ['arm64'],
@@ -32,6 +32,9 @@ describe('ApiStack', () => {
           GEMINI_SECRET_ARN: Match.anyValue(),
         }),
       },
+    });
+    template.hasResourceProperties('AWS::Lambda::Function', {
+      FunctionName: 'cloud-gtm-import-processor',
     });
   });
 
@@ -69,6 +72,22 @@ describe('ApiStack', () => {
           }),
         ]),
       },
+    });
+  });
+
+  it('routes S3 object-created events to the import processor', () => {
+    const template = synth();
+
+    template.hasResourceProperties('AWS::Events::Rule', {
+      EventPattern: {
+        source: ['aws.s3'],
+        'detail-type': ['Object Created'],
+        detail: Match.objectLike({
+          object: { key: [{ prefix: 'imports/' }] },
+          reason: ['PutObject'],
+        }),
+      },
+      Targets: Match.arrayWith([Match.objectLike({ Arn: Match.anyValue() })]),
     });
   });
 
