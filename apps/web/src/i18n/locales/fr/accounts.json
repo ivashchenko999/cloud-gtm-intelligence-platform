@@ -16,5 +16,21 @@
     "purchaseIntent": "Intention d’achat",
     "priority": "Priorité",
     "updated": "Mis à jour"
+  },
+  "filters": {
+    "search": "Rechercher des comptes",
+    "searchPlaceholder": "Nom ou domaine",
+    "scoreLevel": "Niveau d’intention",
+    "cloudProvider": "Fournisseur infonuagique",
+    "industry": "Industrie",
+    "industryPlaceholder": "Industrie exacte",
+    "minScore": "Score min.",
+    "marketplaceActivity": "Activité sur la place de marché",
+    "all": "Tous",
+    "clear": "Effacer les filtres"
+  },
+  "grid": {
+    "ariaLabel": "Comptes",
+    "empty": "Aucun compte ne correspond aux filtres actuels."
   }
 }
