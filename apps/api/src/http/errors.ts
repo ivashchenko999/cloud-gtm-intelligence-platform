@@ -21,6 +21,10 @@ export class HttpError extends Error {
     return new HttpError(404, 'NOT_FOUND', message);
   }
 
+  static badRequest(message: string): HttpError {
+    return new HttpError(400, 'VALIDATION_ERROR', message);
+  }
+
   /** 400 built from a Zod failure, one {@link ErrorDetail} per issue. */
   static fromZodError(error: ZodError, message = 'Request validation failed'): HttpError {
     const details: ErrorDetail[] = error.issues.map((issue) => ({

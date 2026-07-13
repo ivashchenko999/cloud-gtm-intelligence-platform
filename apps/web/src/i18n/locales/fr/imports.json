@@ -5,6 +5,23 @@
     "title": "Détail de l’importation",
     "subtitle": "Les résultats par ligne et les erreurs de l’importation {{id}} apparaîtront ici."
   },
+  "dialog": {
+    "title": "Importer les données CRM",
+    "description": "Téléversez un export CSV de votre CRM. Nous validons et évaluons chaque compte après le téléversement.",
+    "chooseFile": "Choisir un fichier CSV",
+    "changeFile": "Changer de fichier",
+    "noFileSelected": "Aucun fichier sélectionné",
+    "hint": "Fichier CSV, jusqu’à 10 Mo.",
+    "upload": "Téléverser",
+    "uploading": "Téléversement de {{filename}}…",
+    "statusLabel": "Statut : {{status}}",
+    "success": "{{filename}} téléversé. Le traitement commencera sous peu.",
+    "errors": {
+      "invalidType": "Choisissez un fichier .csv exporté de votre CRM.",
+      "fileTooLarge": "Ce fichier dépasse la limite de 10 Mo.",
+      "uploadFailed": "Le téléversement a échoué. Veuillez réessayer."
+    }
+  },
   "status": {
     "PENDING": "En attente",
     "UPLOADING": "Téléversement",

@@ -5,6 +5,23 @@
     "title": "Import detail",
     "subtitle": "Row-level results and errors for import {{id}} will appear here."
   },
+  "dialog": {
+    "title": "Import CRM data",
+    "description": "Upload a CSV export from your CRM. We validate and score every account after it uploads.",
+    "chooseFile": "Choose CSV file",
+    "changeFile": "Change file",
+    "noFileSelected": "No file selected",
+    "hint": "CSV file, up to 10 MB.",
+    "upload": "Upload",
+    "uploading": "Uploading {{filename}}…",
+    "statusLabel": "Status: {{status}}",
+    "success": "{{filename}} uploaded. Processing will begin shortly.",
+    "errors": {
+      "invalidType": "Choose a .csv file exported from your CRM.",
+      "fileTooLarge": "That file is larger than the 10 MB limit.",
+      "uploadFailed": "The upload failed. Please try again."
+    }
+  },
   "status": {
     "PENDING": "Pending",
     "UPLOADING": "Uploading",

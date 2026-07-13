@@ -5,6 +5,7 @@ import type { ITable } from 'aws-cdk-lib/aws-dynamodb';
 import { Architecture, Runtime } from 'aws-cdk-lib/aws-lambda';
 import { NodejsFunction, OutputFormat } from 'aws-cdk-lib/aws-lambda-nodejs';
 import { LogGroup, RetentionDays } from 'aws-cdk-lib/aws-logs';
+import type { IBucket } from 'aws-cdk-lib/aws-s3';
 import type { ISecret } from 'aws-cdk-lib/aws-secretsmanager';
 import { CorsHttpMethod, HttpApi, HttpMethod } from 'aws-cdk-lib/aws-apigatewayv2';
 import { HttpLambdaIntegration } from 'aws-cdk-lib/aws-apigatewayv2-integrations';
@@ -18,6 +19,8 @@ const lockfile = join(repoRoot, 'pnpm-lock.yaml');
 export interface ApiStackProps extends StackProps {
   /** DynamoDB single table the handlers read and write. */
   readonly table: ITable;
+  /** Private bucket the API mints presigned CRM upload URLs against. */
+  readonly importBucket: IBucket;
   /** Secret holding the Gemini API key granted to the Lambda at runtime. */
   readonly geminiApiKey: ISecret;
 }
@@ -51,6 +54,7 @@ export class ApiStack extends Stack {
       logGroup,
       environment: {
         TABLE_NAME: props.table.tableName,
+        IMPORT_BUCKET_NAME: props.importBucket.bucketName,
         GEMINI_SECRET_ARN: props.geminiApiKey.secretArn,
         NODE_OPTIONS: '--enable-source-maps',
       },
@@ -65,6 +69,8 @@ export class ApiStack extends Stack {
     });
 
     props.table.grantReadWriteData(this.handler);
+    // The handler only signs uploads; it never reads or deletes objects.
+    props.importBucket.grantPut(this.handler);
     props.geminiApiKey.grantRead(this.handler);
 
     const integration = new HttpLambdaIntegration('ApiIntegration', this.handler);

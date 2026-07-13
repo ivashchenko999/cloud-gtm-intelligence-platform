@@ -3,6 +3,7 @@ import type { APIGatewayProxyEventV2, APIGatewayProxyResultV2 } from 'aws-lambda
 import type { Repositories } from '@cloud-gtm/database';
 import type { z, ZodTypeAny } from 'zod';
 import type { ApiConfig } from '../config';
+import type { UploadSigner } from '../storage/uploads';
 import { createRequestContext, type RequestContext } from './context';
 import { HttpError } from './errors';
 import { errorResponse } from './responses';
@@ -11,6 +12,8 @@ import { errorResponse } from './responses';
 export interface HandlerDeps {
   repositories: Repositories;
   config: ApiConfig;
+  /** Signs presigned URLs for direct-to-S3 CRM uploads. */
+  uploads: UploadSigner;
 }
 
 /** Arguments passed to every route handler after middleware runs. */
@@ -85,6 +88,22 @@ export function parseOrThrow<TSchema extends ZodTypeAny>(
   const result = schema.safeParse(data);
   if (!result.success) throw HttpError.fromZodError(result.error);
   return result.data;
+}
+
+/**
+ * Reads a JSON request body from an API Gateway v2 event, decoding base64 when
+ * the gateway flags it. An absent/empty body yields `{}` so schema validation
+ * reports the missing fields; malformed JSON throws a 400 {@link HttpError}.
+ */
+export function parseJsonBody(event: APIGatewayProxyEventV2): unknown {
+  const raw = event.body;
+  if (raw === undefined || raw === null || raw.length === 0) return {};
+  const text = event.isBase64Encoded ? Buffer.from(raw, 'base64').toString('utf8') : raw;
+  try {
+    return JSON.parse(text);
+  } catch {
+    throw HttpError.badRequest('Request body is not valid JSON');
+  }
 }
 
 /**
