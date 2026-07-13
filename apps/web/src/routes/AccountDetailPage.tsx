@@ -19,6 +19,12 @@ import { toSupportedLocale } from '../i18n';
 import { formatCurrency, formatDate, formatNumber } from '../i18n/formatters';
 import { ErrorState } from '../components/ErrorState';
 
+const APP_BAR_OFFSET = { xs: 56, sm: 64 } as const;
+const DETAIL_DRAWER_HEIGHT = {
+  xs: `calc(100% - ${APP_BAR_OFFSET.xs}px)`,
+  sm: `calc(100% - ${APP_BAR_OFFSET.sm}px)`,
+} as const;
+
 function scoreColor(level: ScoreLevel): 'success' | 'warning' | 'default' {
   if (level === 'HIGH') return 'success';
   if (level === 'MEDIUM') return 'warning';
@@ -121,6 +127,14 @@ export function AccountDetailPage() {
         sx: {
           width: { xs: '100%', sm: 560 },
           maxWidth: '100%',
+          top: APP_BAR_OFFSET,
+          height: DETAIL_DRAWER_HEIGHT,
+        },
+      }}
+      sx={{
+        '& .MuiBackdrop-root': {
+          top: APP_BAR_OFFSET,
+          backgroundColor: 'rgba(15, 23, 42, 0.08)',
         },
       }}
     >
