@@ -23,6 +23,7 @@ apps/web/src/api/generated/
 
 # AWS
 .aws-sam/
+cdk-outputs.json
 
 # Logs
 *.log

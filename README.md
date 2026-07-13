@@ -11,8 +11,8 @@ numeric logic.
 ## Technology stack
 
 - React · TypeScript · Vite · Material UI · MUI X Data Grid · TanStack Query
-- Node.js · AWS Lambda · API Gateway (HTTP API) · Amazon S3 · DynamoDB
-- AWS CDK · Gemini API
+- Node.js · AWS Lambda · API Gateway (HTTP API) · Amazon S3 · CloudFront · DynamoDB
+- AWS CDK · CloudWatch · Secrets Manager · Gemini API
 - pnpm workspaces · Turborepo
 
 ## Repository layout
@@ -55,7 +55,24 @@ pnpm test           # Vitest
 pnpm build          # build all packages
 ```
 
-These run for every pull request in CI (`.github/workflows/ci.yml`).
+These run for every pull request in CI (`.github/workflows/ci.yml`). On `main`,
+a deploy job runs after they pass and ships the stacks to AWS.
+
+## Deployment
+
+The app is deployed to AWS (region `ca-central-1`) with the AWS CDK: a private S3
+bucket + CloudFront serve the SPA, an HTTP API Gateway + Lambda serve `/api/*`,
+DynamoDB stores data, and CloudWatch provides dashboards and alarms. CloudFront is
+the single public origin and proxies `/api/*` to the API.
+
+```bash
+pnpm --filter @cloud-gtm/infrastructure bootstrap   # once per account/region
+pnpm build
+pnpm --filter @cloud-gtm/infrastructure deploy
+```
+
+See [`docs/deployment.md`](docs/deployment.md) for OIDC setup, the Gemini secret,
+CI-driven delivery and smoke tests.
 
 ## Key decisions
 

@@ -11,6 +11,10 @@
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "lint": "eslint bin lib",
     "synth": "cdk synth",
+    "bootstrap": "cdk bootstrap",
+    "deploy": "cdk deploy --all --require-approval never",
+    "destroy": "cdk destroy --all --force",
+    "smoke": "node scripts/smoke-test.mjs",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
     "clean": "rm -rf cdk.out coverage"
@@ -20,8 +24,10 @@
     "constructs": "^10.4.2"
   },
   "devDependencies": {
+    "@types/aws-lambda": "^8.10.147",
     "@types/node": "^22.10.5",
     "aws-cdk": "^2.173.1",
+    "esbuild": "^0.24.2",
     "tsx": "^4.19.2"
   }
 }
