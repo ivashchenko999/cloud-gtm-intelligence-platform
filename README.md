@@ -45,8 +45,8 @@ pnpm dev
 
 The web app is served by Vite (`apps/web`). There is currently no local API dev
 server in `apps/api`; production runs the API as AWS Lambda behind API Gateway.
-For local product testing, `pnpm dev` runs the React app locally and points it at
-the deployed AWS API by default.
+For local product testing, `pnpm dev` runs the React app locally and Vite proxies
+`/api/*` to the deployed AWS API.
 
 Open <http://localhost:5173/dashboard>.
 
@@ -54,12 +54,15 @@ That gives this flow:
 
 ```text
 http://localhost:5173
+  -> /api
+  -> Vite proxy
   -> https://4njro4e2y6.execute-api.ca-central-1.amazonaws.com/api
   -> Lambda
   -> DynamoDB / S3
 ```
 
-To override the API target, set `VITE_API_BASE_URL` in `apps/web/.env.local`.
+To override the browser API base path, set `VITE_API_BASE_URL` in
+`apps/web/.env.local`.
 
 Use [`demo-crm-import.csv`](demo-crm-import.csv) as a known-good CRM upload file
 when testing the import flow.
