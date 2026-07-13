@@ -16,5 +16,21 @@
     "purchaseIntent": "Purchase Intent",
     "priority": "Priority",
     "updated": "Updated"
+  },
+  "filters": {
+    "search": "Search accounts",
+    "searchPlaceholder": "Name or domain",
+    "scoreLevel": "Intent level",
+    "cloudProvider": "Cloud provider",
+    "industry": "Industry",
+    "industryPlaceholder": "Exact industry",
+    "minScore": "Min score",
+    "marketplaceActivity": "Marketplace activity",
+    "all": "All",
+    "clear": "Clear filters"
+  },
+  "grid": {
+    "ariaLabel": "Accounts",
+    "empty": "No accounts match the current filters."
   }
 }
