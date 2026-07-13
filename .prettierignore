@@ -4,4 +4,5 @@ build
 coverage
 cdk.out
 generated
+packages/contracts/openapi.json
 pnpm-lock.yaml

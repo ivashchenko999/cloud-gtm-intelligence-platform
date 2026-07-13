@@ -18,6 +18,8 @@
     "typecheck": "turbo typecheck",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
+    "generate": "pnpm --filter @cloud-gtm/contracts generate:openapi && pnpm --filter @cloud-gtm/api-client generate",
+    "generate:check": "pnpm generate && git diff --exit-code -- packages/contracts/openapi.json packages/api-client/src/generated",
     "clean": "turbo clean && rm -rf node_modules",
     "prepare": "husky"
   },
