@@ -9,11 +9,14 @@ import type { IBucket } from 'aws-cdk-lib/aws-s3';
 import type { ISecret } from 'aws-cdk-lib/aws-secretsmanager';
 import { CorsHttpMethod, HttpApi, HttpMethod } from 'aws-cdk-lib/aws-apigatewayv2';
 import { HttpLambdaIntegration } from 'aws-cdk-lib/aws-apigatewayv2-integrations';
+import { Rule } from 'aws-cdk-lib/aws-events';
+import { LambdaFunction } from 'aws-cdk-lib/aws-events-targets';
 import type { Construct } from 'constructs';
 
 const currentDir = dirname(fileURLToPath(import.meta.url));
 const repoRoot = join(currentDir, '..', '..');
 const apiEntry = join(repoRoot, 'apps', 'api', 'src', 'lambda.ts');
+const importProcessorEntry = join(repoRoot, 'apps', 'api', 'src', 'import-processor.ts');
 const lockfile = join(repoRoot, 'pnpm-lock.yaml');
 
 export interface ApiStackProps extends StackProps {
@@ -34,6 +37,7 @@ export interface ApiStackProps extends StackProps {
 export class ApiStack extends Stack {
   public readonly httpApi: HttpApi;
   public readonly handler: NodejsFunction;
+  public readonly importProcessor: NodejsFunction;
 
   constructor(scope: Construct, id: string, props: ApiStackProps) {
     super(scope, id, props);
@@ -72,6 +76,53 @@ export class ApiStack extends Stack {
     // The handler only signs uploads; it never reads or deletes objects.
     props.importBucket.grantPut(this.handler);
     props.geminiApiKey.grantRead(this.handler);
+
+    const importProcessorLogGroup = new LogGroup(this, 'ImportProcessorLogs', {
+      retention: RetentionDays.ONE_MONTH,
+      removalPolicy: RemovalPolicy.DESTROY,
+    });
+
+    this.importProcessor = new NodejsFunction(this, 'ImportProcessor', {
+      functionName: 'cloud-gtm-import-processor',
+      entry: importProcessorEntry,
+      handler: 'handler',
+      runtime: Runtime.NODEJS_22_X,
+      architecture: Architecture.ARM_64,
+      memorySize: 512,
+      timeout: Duration.minutes(1),
+      logGroup: importProcessorLogGroup,
+      environment: {
+        TABLE_NAME: props.table.tableName,
+        IMPORT_BUCKET_NAME: props.importBucket.bucketName,
+        GEMINI_SECRET_ARN: props.geminiApiKey.secretArn,
+        NODE_OPTIONS: '--enable-source-maps',
+      },
+      bundling: {
+        format: OutputFormat.ESM,
+        minify: true,
+        sourceMap: true,
+        target: 'node22',
+      },
+      depsLockFilePath: lockfile,
+      projectRoot: repoRoot,
+    });
+
+    props.table.grantReadWriteData(this.importProcessor);
+    props.importBucket.grantRead(this.importProcessor);
+
+    new Rule(this, 'ImportUploadedRule', {
+      description: 'Process CRM CSV uploads when the import bucket receives a new object.',
+      eventPattern: {
+        source: ['aws.s3'],
+        detailType: ['Object Created'],
+        detail: {
+          bucket: { name: [props.importBucket.bucketName] },
+          object: { key: [{ prefix: 'imports/' }] },
+          reason: ['PutObject'],
+        },
+      },
+      targets: [new LambdaFunction(this.importProcessor)],
+    });
 
     const integration = new HttpLambdaIntegration('ApiIntegration', this.handler);
 

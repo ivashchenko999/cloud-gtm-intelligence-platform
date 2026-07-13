@@ -33,6 +33,11 @@ describe('DataStack', () => {
         CorsRules: Match.arrayWith([Match.objectLike({ AllowedMethods: ['PUT'] })]),
       },
     });
+    template.hasResourceProperties('Custom::S3BucketNotifications', {
+      NotificationConfiguration: {
+        EventBridgeConfiguration: {},
+      },
+    });
   });
 
   it('expires raw uploads and enforces TLS on the import bucket', () => {

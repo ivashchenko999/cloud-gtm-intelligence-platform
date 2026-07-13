@@ -18,6 +18,7 @@
     "@aws-sdk/lib-dynamodb": "^3.699.0",
     "@aws-sdk/s3-request-presigner": "^3.699.0",
     "@cloud-gtm/contracts": "workspace:*",
+    "@cloud-gtm/csv-import": "workspace:*",
     "@cloud-gtm/database": "workspace:*",
     "@cloud-gtm/scoring": "workspace:*",
     "zod": "^3.24.1"
