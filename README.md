@@ -40,18 +40,15 @@ docs/               Architecture notes & decision records
 
 ```bash
 pnpm install
-pnpm dev            # runs app dev servers via Turborepo
+pnpm dev
 ```
 
 The web app is served by Vite (`apps/web`). There is currently no local API dev
 server in `apps/api`; production runs the API as AWS Lambda behind API Gateway.
-For local product testing, run the React app locally and point it at the deployed
-AWS API:
+For local product testing, `pnpm dev` runs the React app locally and points it at
+the deployed AWS API by default.
 
-```bash
-cp apps/web/.env.example apps/web/.env.local
-pnpm --filter @cloud-gtm/web dev
-```
+Open <http://localhost:5173/dashboard>.
 
 That gives this flow:
 
@@ -61,6 +58,8 @@ http://localhost:5173
   -> Lambda
   -> DynamoDB / S3
 ```
+
+To override the API target, set `VITE_API_BASE_URL` in `apps/web/.env.local`.
 
 Use [`demo-crm-import.csv`](demo-crm-import.csv) as a known-good CRM upload file
 when testing the import flow.
