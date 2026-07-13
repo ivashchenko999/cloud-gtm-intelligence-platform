@@ -10,7 +10,9 @@ import { toSupportedLocale } from './i18n';
 import { AppLayout } from './layouts/AppLayout';
 import { DashboardPage } from './routes/DashboardPage';
 import { AccountsPage } from './routes/AccountsPage';
+import { AccountDetailPage } from './routes/AccountDetailPage';
 import { ImportsPage } from './routes/ImportsPage';
+import { ImportDetailPage } from './routes/ImportDetailPage';
 import { SettingsPage } from './routes/SettingsPage';
 
 const queryClient = new QueryClient({
@@ -24,7 +26,9 @@ export function AppRoutes() {
         <Route index element={<Navigate to="/dashboard" replace />} />
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/accounts" element={<AccountsPage />} />
+        <Route path="/accounts/:accountId" element={<AccountDetailPage />} />
         <Route path="/imports" element={<ImportsPage />} />
+        <Route path="/imports/:importId" element={<ImportDetailPage />} />
         <Route path="/settings" element={<SettingsPage />} />
         <Route path="*" element={<Navigate to="/dashboard" replace />} />
       </Route>

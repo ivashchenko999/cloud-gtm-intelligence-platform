@@ -5,9 +5,9 @@ import { MemoryRouter } from 'react-router-dom';
 import i18n from './i18n';
 import { AppProviders, AppRoutes } from './App';
 
-function renderApp() {
+function renderApp(initialEntry = '/dashboard') {
   return render(
-    <MemoryRouter initialEntries={['/dashboard']}>
+    <MemoryRouter initialEntries={[initialEntry]}>
       <AppProviders>
         <AppRoutes />
       </AppProviders>
@@ -33,5 +33,16 @@ describe('application shell', () => {
     await user.click(screen.getByRole('button', { name: 'FR' }));
     expect(await screen.findByRole('link', { name: 'Tableau de bord' })).toBeInTheDocument();
     expect(document.documentElement.lang).toBe('fr-CA');
+  });
+
+  it('renders the account detail route with the account id', () => {
+    renderApp('/accounts/acc-123');
+    expect(screen.getByRole('heading', { name: 'Account detail' })).toBeInTheDocument();
+    expect(screen.getByText(/acc-123/)).toBeInTheDocument();
+  });
+
+  it('redirects unknown routes to the dashboard', () => {
+    renderApp('/nope');
+    expect(screen.getByRole('heading', { name: 'Dashboard' })).toBeInTheDocument();
   });
 });

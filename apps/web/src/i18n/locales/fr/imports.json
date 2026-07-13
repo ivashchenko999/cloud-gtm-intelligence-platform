@@ -1,6 +1,10 @@
 {
   "title": "Importations",
   "subtitle": "Téléversez des exports CRM et suivez le traitement.",
+  "detail": {
+    "title": "Détail de l’importation",
+    "subtitle": "Les résultats par ligne et les erreurs de l’importation {{id}} apparaîtront ici."
+  },
   "status": {
     "PENDING": "En attente",
     "UPLOADING": "Téléversement",
