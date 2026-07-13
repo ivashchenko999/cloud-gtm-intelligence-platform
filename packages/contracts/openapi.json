@@ -1,0 +1,1292 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Cloud GTM Intelligence Platform API",
+    "version": "0.1.0",
+    "description": "Generated from the shared Zod contracts in @cloud-gtm/contracts."
+  },
+  "servers": [
+    {
+      "url": "/api"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "CloudProvider": {
+        "type": "string",
+        "enum": [
+          "AWS",
+          "AZURE",
+          "GCP",
+          "MULTI_CLOUD",
+          "UNKNOWN"
+        ]
+      },
+      "ScoreLevel": {
+        "type": "string",
+        "enum": [
+          "LOW",
+          "MEDIUM",
+          "HIGH"
+        ]
+      },
+      "MarketplaceActivity": {
+        "type": "string",
+        "enum": [
+          "LOW",
+          "MEDIUM",
+          "HIGH"
+        ]
+      },
+      "ImportStatus": {
+        "type": "string",
+        "enum": [
+          "PENDING",
+          "UPLOADING",
+          "PROCESSING",
+          "COMPLETED",
+          "PARTIALLY_COMPLETED",
+          "FAILED"
+        ]
+      },
+      "SupportedLocale": {
+        "type": "string",
+        "enum": [
+          "en-CA",
+          "fr-CA"
+        ]
+      },
+      "ScoreVersion": {
+        "type": "string",
+        "enum": [
+          "rules-v1"
+        ]
+      },
+      "InsightType": {
+        "type": "string",
+        "enum": [
+          "EXPLANATION",
+          "NEXT_ACTION",
+          "OUTREACH"
+        ]
+      },
+      "ApiErrorCode": {
+        "type": "string",
+        "enum": [
+          "VALIDATION_ERROR",
+          "NOT_FOUND",
+          "CONFLICT",
+          "UNAUTHORIZED",
+          "FORBIDDEN",
+          "RATE_LIMITED",
+          "AI_UNAVAILABLE",
+          "INTERNAL_ERROR"
+        ]
+      },
+      "SortOrder": {
+        "type": "string",
+        "enum": [
+          "asc",
+          "desc"
+        ]
+      },
+      "ScoreFactor": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "points": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "code",
+          "label",
+          "points"
+        ]
+      },
+      "AccountScore": {
+        "type": "object",
+        "properties": {
+          "score": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "level": {
+            "$ref": "#/components/schemas/ScoreLevel"
+          },
+          "version": {
+            "$ref": "#/components/schemas/ScoreVersion"
+          },
+          "factors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ScoreFactor"
+            }
+          },
+          "scoredAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "score",
+          "level",
+          "version",
+          "factors",
+          "scoredAt"
+        ]
+      },
+      "AccountSummary": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "domain": {
+            "type": "string"
+          },
+          "industry": {
+            "type": "string"
+          },
+          "employeeCount": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "primaryCloud": {
+            "$ref": "#/components/schemas/CloudProvider"
+          },
+          "estimatedCloudSpend": {
+            "type": "number",
+            "minimum": 0
+          },
+          "marketplaceActivity": {
+            "$ref": "#/components/schemas/MarketplaceActivity"
+          },
+          "purchaseIntentScore": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "scoreLevel": {
+            "$ref": "#/components/schemas/ScoreLevel"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "primaryCloud",
+          "purchaseIntentScore",
+          "scoreLevel",
+          "updatedAt"
+        ]
+      },
+      "Account": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "domain": {
+            "type": "string"
+          },
+          "industry": {
+            "type": "string"
+          },
+          "employeeCount": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "annualRevenue": {
+            "type": "number",
+            "minimum": 0
+          },
+          "primaryCloud": {
+            "$ref": "#/components/schemas/CloudProvider"
+          },
+          "estimatedCloudSpend": {
+            "type": "number",
+            "minimum": 0
+          },
+          "existingProducts": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "default": []
+          },
+          "marketplaceActivity": {
+            "$ref": "#/components/schemas/MarketplaceActivity"
+          },
+          "marketplaceTransactions": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "purchaseIntentScore": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "scoreLevel": {
+            "$ref": "#/components/schemas/ScoreLevel"
+          },
+          "scoreVersion": {
+            "$ref": "#/components/schemas/ScoreVersion"
+          },
+          "scoreFactors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ScoreFactor"
+            }
+          },
+          "importId": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "primaryCloud",
+          "purchaseIntentScore",
+          "scoreLevel",
+          "scoreVersion",
+          "scoreFactors",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "PaginationMeta": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "pageSize": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "totalItems": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "totalPages": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "page",
+          "pageSize",
+          "totalItems",
+          "totalPages"
+        ]
+      },
+      "ListAccountsResponse": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AccountSummary"
+            }
+          },
+          "pagination": {
+            "$ref": "#/components/schemas/PaginationMeta"
+          }
+        },
+        "required": [
+          "items",
+          "pagination"
+        ]
+      },
+      "DistributionBucket": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string"
+          },
+          "count": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "key",
+          "count"
+        ]
+      },
+      "CloudOpportunities": {
+        "type": "object",
+        "properties": {
+          "aws": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "azure": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "gcp": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "aws",
+          "azure",
+          "gcp"
+        ]
+      },
+      "Import": {
+        "type": "object",
+        "nullable": true,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "filename": {
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/components/schemas/ImportStatus"
+          },
+          "uploadedBy": {
+            "type": "string"
+          },
+          "uploadedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "startedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "completedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "totalRows": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "successfulRows": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "failedRows": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "durationMs": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "id",
+          "filename",
+          "status",
+          "uploadedBy",
+          "uploadedAt",
+          "totalRows",
+          "successfulRows",
+          "failedRows"
+        ]
+      },
+      "DashboardResponse": {
+        "type": "object",
+        "properties": {
+          "totalAccounts": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "highIntentAccounts": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "averageIntentScore": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "estimatedPipelineValue": {
+            "type": "number",
+            "minimum": 0
+          },
+          "cloudOpportunities": {
+            "$ref": "#/components/schemas/CloudOpportunities"
+          },
+          "intentDistribution": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DistributionBucket"
+            }
+          },
+          "cloudDistribution": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DistributionBucket"
+            }
+          },
+          "industryDistribution": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DistributionBucket"
+            }
+          },
+          "topAccounts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AccountSummary"
+            }
+          },
+          "latestImport": {
+            "$ref": "#/components/schemas/Import"
+          }
+        },
+        "required": [
+          "totalAccounts",
+          "highIntentAccounts",
+          "averageIntentScore",
+          "estimatedPipelineValue",
+          "cloudOpportunities",
+          "intentDistribution",
+          "cloudDistribution",
+          "industryDistribution",
+          "topAccounts",
+          "latestImport"
+        ]
+      },
+      "ImportError": {
+        "type": "object",
+        "properties": {
+          "rowNumber": {
+            "type": "integer",
+            "minimum": 0,
+            "exclusiveMinimum": true
+          },
+          "field": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "rawValue": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "rowNumber",
+          "message"
+        ]
+      },
+      "ImportDetail": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Import"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "errors": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/ImportError"
+                }
+              }
+            },
+            "required": [
+              "errors"
+            ]
+          }
+        ]
+      },
+      "ListImportsResponse": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Import"
+            }
+          },
+          "pagination": {
+            "$ref": "#/components/schemas/PaginationMeta"
+          }
+        },
+        "required": [
+          "items",
+          "pagination"
+        ]
+      },
+      "CreateImportRequest": {
+        "type": "object",
+        "properties": {
+          "filename": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255
+          },
+          "contentType": {
+            "type": "string",
+            "enum": [
+              "text/csv",
+              "application/vnd.ms-excel"
+            ]
+          },
+          "sizeBytes": {
+            "type": "integer",
+            "minimum": 0,
+            "exclusiveMinimum": true,
+            "maximum": 10485760
+          }
+        },
+        "required": [
+          "filename",
+          "contentType",
+          "sizeBytes"
+        ]
+      },
+      "CreateImportResponse": {
+        "type": "object",
+        "properties": {
+          "importId": {
+            "type": "string"
+          },
+          "uploadUrl": {
+            "type": "string",
+            "format": "uri"
+          },
+          "s3Key": {
+            "type": "string"
+          },
+          "expiresInSeconds": {
+            "type": "integer",
+            "minimum": 0,
+            "exclusiveMinimum": true
+          }
+        },
+        "required": [
+          "importId",
+          "uploadUrl",
+          "s3Key",
+          "expiresInSeconds"
+        ]
+      },
+      "InsightRequest": {
+        "type": "object",
+        "properties": {
+          "locale": {
+            "$ref": "#/components/schemas/SupportedLocale"
+          }
+        },
+        "required": [
+          "locale"
+        ]
+      },
+      "ExplanationInsight": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "EXPLANATION"
+            ]
+          },
+          "summary": {
+            "type": "string"
+          },
+          "reasons": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "confidenceNote": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "type",
+          "summary",
+          "reasons",
+          "confidenceNote"
+        ]
+      },
+      "NextActionInsight": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "NEXT_ACTION"
+            ]
+          },
+          "action": {
+            "type": "string"
+          },
+          "channel": {
+            "type": "string"
+          },
+          "persona": {
+            "type": "string"
+          },
+          "talkingPoints": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "type",
+          "action",
+          "channel",
+          "persona",
+          "talkingPoints"
+        ]
+      },
+      "OutreachInsight": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "OUTREACH"
+            ]
+          },
+          "subject": {
+            "type": "string"
+          },
+          "body": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "type",
+          "subject",
+          "body"
+        ]
+      },
+      "InsightContent": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/ExplanationInsight"
+          },
+          {
+            "$ref": "#/components/schemas/NextActionInsight"
+          },
+          {
+            "$ref": "#/components/schemas/OutreachInsight"
+          }
+        ],
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "EXPLANATION": "#/components/schemas/ExplanationInsight",
+            "NEXT_ACTION": "#/components/schemas/NextActionInsight",
+            "OUTREACH": "#/components/schemas/OutreachInsight"
+          }
+        }
+      },
+      "AIInsight": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "accountId": {
+            "type": "string"
+          },
+          "type": {
+            "$ref": "#/components/schemas/InsightType"
+          },
+          "locale": {
+            "$ref": "#/components/schemas/SupportedLocale"
+          },
+          "content": {
+            "$ref": "#/components/schemas/InsightContent"
+          },
+          "model": {
+            "type": "string"
+          },
+          "cached": {
+            "type": "boolean",
+            "default": false
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "accountId",
+          "type",
+          "locale",
+          "content",
+          "createdAt"
+        ]
+      },
+      "ErrorDetail": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "path",
+          "message"
+        ]
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "$ref": "#/components/schemas/ApiErrorCode"
+          },
+          "message": {
+            "type": "string"
+          },
+          "details": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ErrorDetail"
+            }
+          },
+          "requestId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message"
+        ]
+      },
+      "accountId": {
+        "type": "string",
+        "example": "acc_123"
+      },
+      "importId": {
+        "type": "string",
+        "example": "imp_123"
+      },
+      "HealthResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "ok"
+            ]
+          },
+          "service": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "status",
+          "service",
+          "timestamp"
+        ]
+      }
+    },
+    "parameters": {
+      "accountId": {
+        "schema": {
+          "$ref": "#/components/schemas/accountId"
+        },
+        "required": true,
+        "name": "accountId",
+        "in": "path"
+      },
+      "importId": {
+        "schema": {
+          "$ref": "#/components/schemas/importId"
+        },
+        "required": true,
+        "name": "importId",
+        "in": "path"
+      }
+    }
+  },
+  "paths": {
+    "/health": {
+      "get": {
+        "summary": "Liveness probe",
+        "responses": {
+          "200": {
+            "description": "Service is healthy",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/dashboard": {
+      "get": {
+        "summary": "Aggregated GTM dashboard metrics",
+        "responses": {
+          "200": {
+            "description": "Dashboard summary",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DashboardResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/accounts": {
+      "get": {
+        "summary": "List and filter accounts",
+        "parameters": [
+          {
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            },
+            "required": false,
+            "name": "page",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 25
+            },
+            "required": false,
+            "name": "pageSize",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "name",
+                "industry",
+                "employeeCount",
+                "estimatedCloudSpend",
+                "purchaseIntentScore",
+                "updatedAt"
+              ],
+              "default": "purchaseIntentScore"
+            },
+            "required": false,
+            "name": "sortBy",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/SortOrder"
+                },
+                {
+                  "default": "desc"
+                }
+              ]
+            },
+            "required": false,
+            "name": "sortOrder",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "required": false,
+            "name": "search",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "$ref": "#/components/schemas/ScoreLevel"
+            },
+            "required": false,
+            "name": "scoreLevel",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "$ref": "#/components/schemas/CloudProvider"
+            },
+            "required": false,
+            "name": "cloudProvider",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "required": false,
+            "name": "industry",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "number",
+              "nullable": true,
+              "minimum": 0,
+              "maximum": 100
+            },
+            "required": false,
+            "name": "minScore",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "$ref": "#/components/schemas/MarketplaceActivity"
+            },
+            "required": false,
+            "name": "marketplaceActivity",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "name": "importId",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Paginated accounts",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListAccountsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid query parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/accounts/{accountId}": {
+      "get": {
+        "summary": "Get a single account with score factors",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/accountId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Account detail",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Account"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Account not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/accounts/{accountId}/insights/explanation": {
+      "post": {
+        "summary": "Generate the explanation AI insight",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/accountId"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InsightRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Generated insight",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AIInsight"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Account not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "AI provider unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/accounts/{accountId}/insights/next-action": {
+      "post": {
+        "summary": "Generate the next-action AI insight",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/accountId"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InsightRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Generated insight",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AIInsight"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Account not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "AI provider unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/accounts/{accountId}/insights/outreach": {
+      "post": {
+        "summary": "Generate the outreach AI insight",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/accountId"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InsightRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Generated insight",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AIInsight"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Account not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "AI provider unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/imports": {
+      "get": {
+        "summary": "List import jobs",
+        "responses": {
+          "200": {
+            "description": "Paginated imports",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListImportsResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Start an import and get a presigned upload URL",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateImportRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Import created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateImportResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request body",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/imports/{importId}": {
+      "get": {
+        "summary": "Get an import with its row-level errors",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/importId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Import detail",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ImportDetail"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Import not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

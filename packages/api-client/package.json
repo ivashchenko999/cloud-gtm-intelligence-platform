@@ -1,12 +1,10 @@
 {
-  "name": "@cloud-gtm/contracts",
+  "name": "@cloud-gtm/api-client",
   "version": "0.1.0",
   "private": true,
   "type": "module",
   "exports": {
-    ".": "./src/index.ts",
-    "./openapi": "./src/openapi.ts",
-    "./openapi.json": "./openapi.json"
+    ".": "./src/index.ts"
   },
   "scripts": {
     "build": "tsc --noEmit -p tsconfig.json",
@@ -14,14 +12,19 @@
     "lint": "eslint src",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
-    "generate:openapi": "tsx scripts/generate-openapi.ts",
+    "generate": "orval --config ./orval.config.ts",
     "clean": "rm -rf coverage"
   },
   "dependencies": {
-    "@asteasolutions/zod-to-openapi": "^7.3.0",
-    "zod": "^3.24.1"
+    "@cloud-gtm/contracts": "workspace:*",
+    "@tanstack/react-query": "^5.62.11"
+  },
+  "peerDependencies": {
+    "react": "^18.3.1"
   },
   "devDependencies": {
-    "tsx": "^4.19.2"
+    "@types/react": "^18.3.18",
+    "orval": "^7.3.0",
+    "react": "^18.3.1"
   }
 }
