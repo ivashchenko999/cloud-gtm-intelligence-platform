@@ -1,13 +1,13 @@
+import { jsonResponse } from '../http/responses';
+import type { RouteHandler } from '../http/router';
+
 export interface HealthResponse {
   status: 'ok';
   service: string;
   timestamp: string;
 }
 
-/**
- * Health handler exposed at `GET /api/health` (see `../lambda.ts`). Middleware
- * and the real resource handlers arrive in M4.
- */
+/** Pure health payload; kept separate so tests assert it without a full event. */
 export function getHealth(now: Date = new Date()): HealthResponse {
   return {
     status: 'ok',
@@ -15,3 +15,6 @@ export function getHealth(now: Date = new Date()): HealthResponse {
     timestamp: now.toISOString(),
   };
 }
+
+/** Smoke route at `GET /api/health` — no auth, no data access. */
+export const handleHealth: RouteHandler = () => Promise.resolve(jsonResponse(200, getHealth()));

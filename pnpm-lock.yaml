@@ -50,9 +50,21 @@ importers:
 
   apps/api:
     dependencies:
+      '@aws-lambda-powertools/logger':
+        specifier: ^2.12.0
+        version: 2.34.0
+      '@aws-sdk/client-dynamodb':
+        specifier: ^3.699.0
+        version: 3.1085.0
+      '@aws-sdk/lib-dynamodb':
+        specifier: ^3.699.0
+        version: 3.1085.0(@aws-sdk/client-dynamodb@3.1085.0)
       '@cloud-gtm/contracts':
         specifier: workspace:*
         version: link:../../packages/contracts
+      '@cloud-gtm/database':
+        specifier: workspace:*
+        version: link:../../packages/database
       '@cloud-gtm/scoring':
         specifier: workspace:*
         version: link:../../packages/scoring
@@ -275,6 +287,20 @@ packages:
     bundledDependencies:
       - jsonschema
       - semver
+
+  '@aws-lambda-powertools/commons@2.34.0':
+    resolution: {integrity: sha512-ga89L3UznCwkApsrVAYGywifAh9PpccXZAVE053B6IdKvZrwjv+L+ja1WyzU9sy9UR3wPEdh0LFiUCRZRhTfvQ==}
+
+  '@aws-lambda-powertools/logger@2.34.0':
+    resolution: {integrity: sha512-FIWQcdX/dqfKE+4H8N9w7y7/3/ANmDpKDgMlMc+yPNx2XDpKK6Ou1zLFYoNt5mV6dOZunFQcKbRWUy6zIDdE0w==}
+    peerDependencies:
+      '@aws-lambda-powertools/jmespath': 2.34.0
+      '@middy/core': 4.x || 5.x || 6.x || 7.x
+    peerDependenciesMeta:
+      '@aws-lambda-powertools/jmespath':
+        optional: true
+      '@middy/core':
+        optional: true
 
   '@aws-sdk/client-dynamodb@3.1085.0':
     resolution: {integrity: sha512-EpEFvJm+YjrCeDeXTQcbvk2zviLhKxM7exEiuAXXs4QT6h8HemeMY3gxF0S4gScjzhu3VdDXjLLnlJczIj/49w==}
@@ -4082,6 +4108,15 @@ snapshots:
   '@aws-cdk/asset-node-proxy-agent-v6@2.1.2': {}
 
   '@aws-cdk/cloud-assembly-schema@54.9.0': {}
+
+  '@aws-lambda-powertools/commons@2.34.0':
+    dependencies:
+      '@aws/lambda-invoke-store': 0.3.0
+
+  '@aws-lambda-powertools/logger@2.34.0':
+    dependencies:
+      '@aws-lambda-powertools/commons': 2.34.0
+      '@aws/lambda-invoke-store': 0.3.0
 
   '@aws-sdk/client-dynamodb@3.1085.0':
     dependencies:
