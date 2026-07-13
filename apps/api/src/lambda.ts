@@ -3,7 +3,7 @@ import { readConfig, type ApiConfig } from './config';
 import { getAccount, listAccounts } from './handlers/accounts';
 import { getDashboard } from './handlers/dashboard';
 import { handleHealth } from './handlers/health';
-import { createImport } from './handlers/imports';
+import { createImport, getImport, listImports } from './handlers/imports';
 import { createRouter, route, type HandlerDeps } from './http/router';
 import { getRepositories } from './repositories';
 import { getUploadSigner } from './storage/uploads';
@@ -18,6 +18,8 @@ export const routes = [
   route('GET', '/dashboard', getDashboard),
   route('GET', '/accounts', listAccounts),
   route('GET', '/accounts/:accountId', getAccount),
+  route('GET', '/imports', listImports),
+  route('GET', '/imports/:importId', getImport),
   route('POST', '/imports', createImport),
 ] as const;
 

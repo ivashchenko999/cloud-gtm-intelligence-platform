@@ -90,6 +90,7 @@ function buildParams(searchParams: URLSearchParams): GetAccountsParams {
     MARKETPLACE_ACTIVITY,
   );
   const minScore = optionalNumberParam(searchParams, 'minScore');
+  const importId = searchParams.get('importId')?.trim() || undefined;
 
   const params: GetAccountsParams = {
     page,
@@ -103,6 +104,7 @@ function buildParams(searchParams: URLSearchParams): GetAccountsParams {
   if (cloudProvider) params.cloudProvider = cloudProvider;
   if (marketplaceActivity) params.marketplaceActivity = marketplaceActivity;
   if (minScore !== undefined) params.minScore = minScore;
+  if (importId) params.importId = importId;
 
   return params;
 }

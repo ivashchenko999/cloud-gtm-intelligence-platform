@@ -1,9 +1,14 @@
 import { describe, expect, it } from 'vitest';
-import type { CreateImportRequest, CreateImportResponse } from '@cloud-gtm/contracts';
+import type {
+  CreateImportRequest,
+  CreateImportResponse,
+  ImportDetailResponse,
+  ListImportsResponse,
+} from '@cloud-gtm/contracts';
 import { MAX_IMPORT_BYTES } from '@cloud-gtm/contracts';
 import { createHandler } from '../lambda';
 import { DEFAULT_WORKSPACE_ID } from '../config';
-import { buildTestDeps, parseResult, postEvent } from '../test-support';
+import { buildTestDeps, getEvent, parseResult, postEvent } from '../test-support';
 
 const validRequest: CreateImportRequest = {
   filename: 'crm-export.csv',
@@ -91,5 +96,73 @@ describe('POST /imports', () => {
     );
     expect(statusCode).toBe(400);
     expect(body).toMatchObject({ code: 'VALIDATION_ERROR' });
+  });
+});
+
+describe('GET /imports', () => {
+  it('lists imports newest first with pagination metadata', async () => {
+    const { handler, repositories } = harness();
+    await repositories.imports.save({
+      id: 'imp_old',
+      workspaceId: DEFAULT_WORKSPACE_ID,
+      filename: 'old.csv',
+      status: 'COMPLETED',
+      uploadedBy: 'demo-user',
+      uploadedAt: '2026-07-13T10:00:00.000Z',
+      totalRows: 1,
+      successfulRows: 1,
+      failedRows: 0,
+    });
+    await repositories.imports.save({
+      id: 'imp_new',
+      workspaceId: DEFAULT_WORKSPACE_ID,
+      filename: 'new.csv',
+      status: 'FAILED',
+      uploadedBy: 'demo-user',
+      uploadedAt: '2026-07-13T11:00:00.000Z',
+      totalRows: 2,
+      successfulRows: 0,
+      failedRows: 2,
+    });
+
+    const { statusCode, body } = parseResult(await handler(getEvent('/api/imports')));
+    const response = body as ListImportsResponse;
+
+    expect(statusCode).toBe(200);
+    expect(response.items.map((item) => item.id)).toEqual(['imp_new', 'imp_old']);
+    expect(response.pagination).toMatchObject({ page: 1, pageSize: 25, totalItems: 2 });
+  });
+
+  it('returns an import detail with row errors', async () => {
+    const { handler, repositories } = harness();
+    await repositories.imports.save({
+      id: 'imp_errors',
+      workspaceId: DEFAULT_WORKSPACE_ID,
+      filename: 'errors.csv',
+      status: 'PARTIALLY_COMPLETED',
+      uploadedBy: 'demo-user',
+      uploadedAt: '2026-07-13T10:00:00.000Z',
+      totalRows: 2,
+      successfulRows: 1,
+      failedRows: 1,
+    });
+    await repositories.imports.addErrors(DEFAULT_WORKSPACE_ID, [
+      { importId: 'imp_errors', rowNumber: 3, message: 'Account name is required.' },
+    ]);
+
+    const { statusCode, body } = parseResult(await handler(getEvent('/api/imports/imp_errors')));
+    const response = body as ImportDetailResponse;
+
+    expect(statusCode).toBe(200);
+    expect(response.id).toBe('imp_errors');
+    expect(response.errors).toEqual([{ rowNumber: 3, message: 'Account name is required.' }]);
+  });
+
+  it('returns NOT_FOUND for a missing import', async () => {
+    const { handler } = harness();
+    const { statusCode, body } = parseResult(await handler(getEvent('/api/imports/missing')));
+
+    expect(statusCode).toBe(404);
+    expect(body).toMatchObject({ code: 'NOT_FOUND' });
   });
 });

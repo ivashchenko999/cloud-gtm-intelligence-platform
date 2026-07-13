@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useQueryClient } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
 import Alert from '@mui/material/Alert';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -13,7 +14,13 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import UploadFileIcon from '@mui/icons-material/UploadFileOutlined';
 import type { CreateImportRequest, ImportStatus } from '@cloud-gtm/api-client';
-import { getGetImportsQueryKey, usePostImports } from '@cloud-gtm/api-client';
+import {
+  getGetAccountsQueryKey,
+  getGetDashboardQueryKey,
+  getGetImportsImportIdQueryKey,
+  getGetImportsQueryKey,
+  usePostImports,
+} from '@cloud-gtm/api-client';
 import { MAX_IMPORT_BYTES } from '@cloud-gtm/contracts';
 import { uploadFileToS3 } from '../api/upload';
 
@@ -63,6 +70,7 @@ export interface ImportCrmDialogProps {
 export function ImportCrmDialog({ open, onClose }: ImportCrmDialogProps) {
   const { t } = useTranslation(['imports', 'common']);
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
   const createImport = usePostImports();
 
   const inputRef = useRef<HTMLInputElement>(null);
@@ -122,6 +130,12 @@ export function ImportCrmDialog({ open, onClose }: ImportCrmDialogProps) {
       });
       setPhase('done');
       await queryClient.invalidateQueries({ queryKey: getGetImportsQueryKey() });
+      await queryClient.invalidateQueries({
+        queryKey: getGetImportsImportIdQueryKey(created.importId),
+      });
+      await queryClient.invalidateQueries({ queryKey: getGetDashboardQueryKey() });
+      await queryClient.invalidateQueries({ queryKey: getGetAccountsQueryKey() });
+      navigate(`/imports/${created.importId}`);
     } catch (error) {
       if (error instanceof DOMException && error.name === 'AbortError') return;
       setErrorKey('uploadFailed');

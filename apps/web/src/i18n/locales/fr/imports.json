@@ -1,9 +1,43 @@
 {
   "title": "Importations",
   "subtitle": "Téléversez des exports CRM et suivez le traitement.",
+  "empty": "Aucune importation pour l’instant.",
+  "columns": {
+    "file": "Fichier",
+    "status": "Statut",
+    "uploadedAt": "Téléversé",
+    "rows": "Lignes",
+    "errors": "Erreurs",
+    "duration": "Durée",
+    "uploadedBy": "Téléversé par"
+  },
+  "grid": {
+    "ariaLabel": "Historique des importations CRM"
+  },
+  "rowsSummary": "{{success}} sur {{total}}",
   "detail": {
     "title": "Détail de l’importation",
-    "subtitle": "Les résultats par ligne et les erreurs de l’importation {{id}} apparaîtront ici."
+    "subtitle": "Les résultats par ligne et les erreurs de l’importation {{id}} apparaîtront ici.",
+    "back": "Retour aux importations",
+    "viewAccounts": "Voir les comptes importés",
+    "uploadedMeta": "Téléversé le {{date}} par {{user}}",
+    "metrics": {
+      "totalRows": "Lignes totales",
+      "successfulRows": "Réussies",
+      "failedRows": "Erreurs",
+      "duration": "Durée"
+    },
+    "errors": {
+      "title": "Erreurs par ligne",
+      "empty": "Aucune erreur de ligne pour cette importation.",
+      "ariaLabel": "Erreurs par ligne de l’importation",
+      "columns": {
+        "row": "Ligne",
+        "field": "Champ",
+        "rawValue": "Valeur brute",
+        "message": "Message"
+      }
+    }
   },
   "dialog": {
     "title": "Importer les données CRM",

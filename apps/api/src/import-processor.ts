@@ -105,7 +105,8 @@ export async function processImportObject(params: {
     return;
   }
 
-  const processingJob: ImportJob = { ...existing, status: 'PROCESSING' };
+  const startedAt = new Date().toISOString();
+  const processingJob: ImportJob = { ...existing, status: 'PROCESSING', startedAt };
   await repositories.imports.save(processingJob);
 
   try {
@@ -130,12 +131,15 @@ export async function processImportObject(params: {
     const status =
       accounts.length === 0 ? 'FAILED' : errors.length > 0 ? 'PARTIALLY_COMPLETED' : 'COMPLETED';
 
+    const durationMs = new Date(now).getTime() - new Date(startedAt).getTime();
     await repositories.imports.save({
       ...processingJob,
       status,
+      completedAt: now,
       totalRows: parsed.totalRows,
       successfulRows: accounts.length,
       failedRows: errors.length,
+      durationMs,
     });
 
     logger.info('Import processed', {

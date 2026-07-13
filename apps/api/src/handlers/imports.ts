@@ -1,6 +1,13 @@
 import { randomUUID } from 'node:crypto';
-import { CreateImportRequestSchema, type CreateImportResponse } from '@cloud-gtm/contracts';
+import {
+  CreateImportRequestSchema,
+  PaginationQuerySchema,
+  type CreateImportResponse,
+  type ListImportsResponse,
+} from '@cloud-gtm/contracts';
+import { toImportDetailDto, toImportDto } from '@cloud-gtm/database';
 import type { ImportJob } from '@cloud-gtm/database';
+import { HttpError } from '../http/errors';
 import { jsonResponse } from '../http/responses';
 import { parseJsonBody, parseOrThrow, type RouteHandler } from '../http/router';
 
@@ -18,6 +25,37 @@ const DEFAULT_UPLOADED_BY = 'demo-user';
 export function importObjectKey(workspaceId: string, importId: string): string {
   return `imports/${workspaceId}/${importId}.csv`;
 }
+
+function sortLatestFirst(imports: ImportJob[]): ImportJob[] {
+  return [...imports].sort((a, b) => b.uploadedAt.localeCompare(a.uploadedAt));
+}
+
+/** `GET /imports` — paginated history of CRM import jobs, newest first. */
+export const listImports: RouteHandler = async ({ event, ctx, deps }) => {
+  const query = parseOrThrow(PaginationQuerySchema, event.queryStringParameters ?? {});
+  const imports = sortLatestFirst(await deps.repositories.imports.list(ctx.workspaceId));
+  const start = (query.page - 1) * query.pageSize;
+  const items = imports.slice(start, start + query.pageSize).map(toImportDto);
+  const body: ListImportsResponse = {
+    items,
+    pagination: {
+      page: query.page,
+      pageSize: query.pageSize,
+      totalItems: imports.length,
+      totalPages: imports.length === 0 ? 0 : Math.ceil(imports.length / query.pageSize),
+    },
+  };
+  return jsonResponse(200, body);
+};
+
+/** `GET /imports/{importId}` — import summary plus row-level errors. */
+export const getImport: RouteHandler = async ({ params, ctx, deps }) => {
+  const importId = params.importId ?? '';
+  const job = await deps.repositories.imports.get(ctx.workspaceId, importId);
+  if (!job) throw HttpError.notFound(`Import ${importId} not found`);
+  const errors = await deps.repositories.imports.listErrors(ctx.workspaceId, importId);
+  return jsonResponse(200, toImportDetailDto(job, errors));
+};
 
 /**
  * `POST /imports` — records a PENDING import and returns a presigned URL the

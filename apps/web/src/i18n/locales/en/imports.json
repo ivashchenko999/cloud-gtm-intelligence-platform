@@ -1,9 +1,43 @@
 {
   "title": "Imports",
   "subtitle": "Upload CRM exports and track processing.",
+  "empty": "No imports yet.",
+  "columns": {
+    "file": "File",
+    "status": "Status",
+    "uploadedAt": "Uploaded",
+    "rows": "Rows",
+    "errors": "Errors",
+    "duration": "Duration",
+    "uploadedBy": "Uploaded by"
+  },
+  "grid": {
+    "ariaLabel": "CRM import history"
+  },
+  "rowsSummary": "{{success}} of {{total}}",
   "detail": {
     "title": "Import detail",
-    "subtitle": "Row-level results and errors for import {{id}} will appear here."
+    "subtitle": "Row-level results and errors for import {{id}} will appear here.",
+    "back": "Back to imports",
+    "viewAccounts": "View imported accounts",
+    "uploadedMeta": "Uploaded {{date}} by {{user}}",
+    "metrics": {
+      "totalRows": "Total rows",
+      "successfulRows": "Successful",
+      "failedRows": "Errors",
+      "duration": "Duration"
+    },
+    "errors": {
+      "title": "Row errors",
+      "empty": "No row errors for this import.",
+      "ariaLabel": "Import row errors",
+      "columns": {
+        "row": "Row",
+        "field": "Field",
+        "rawValue": "Raw value",
+        "message": "Message"
+      }
+    }
   },
   "dialog": {
     "title": "Import CRM data",

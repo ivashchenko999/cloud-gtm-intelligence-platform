@@ -4,6 +4,7 @@ import userEvent from '@testing-library/user-event';
 import { I18nextProvider } from 'react-i18next';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ThemeProvider } from '@mui/material/styles';
+import { MemoryRouter, useLocation } from 'react-router-dom';
 import { MAX_IMPORT_BYTES } from '@cloud-gtm/contracts';
 import i18n from '../i18n';
 import { createAppTheme } from '../theme';
@@ -21,6 +22,11 @@ const presignedResponse = {
   expiresInSeconds: 900,
 };
 
+function LocationProbe() {
+  const location = useLocation();
+  return <span data-testid="location">{location.pathname}</span>;
+}
+
 function renderDialog() {
   const client = new QueryClient({
     defaultOptions: { queries: { retry: false }, mutations: { retry: false } },
@@ -30,7 +36,10 @@ function renderDialog() {
     <I18nextProvider i18n={i18n}>
       <QueryClientProvider client={client}>
         <ThemeProvider theme={createAppTheme('en-CA')}>
-          <ImportCrmDialog open onClose={onClose} />
+          <MemoryRouter initialEntries={['/dashboard']}>
+            <LocationProbe />
+            <ImportCrmDialog open onClose={onClose} />
+          </MemoryRouter>
         </ThemeProvider>
       </QueryClientProvider>
     </I18nextProvider>,
@@ -117,6 +126,7 @@ describe('ImportCrmDialog', () => {
     });
 
     expect(await screen.findByText(/uploaded\. processing will begin/i)).toBeInTheDocument();
+    expect(screen.getByTestId('location')).toHaveTextContent('/imports/imp_test');
   });
 
   it('surfaces an error when the upload fails', async () => {
